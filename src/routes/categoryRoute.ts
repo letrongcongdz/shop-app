@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { CategoryController } from "../controllers/CategoryController.ts";
+import { categoryController } from "../controllers/CategoryController.ts";
 import type { ICategoryService } from "../services/interfaces/categoryService.ts";
 import { asyncHandler } from "../middlewares/wrapper.ts";
 
 export const categoryRouter = (categoryService: ICategoryService) => {
   const router = Router();
-  const controller = new CategoryController(categoryService);
+  const controller = new categoryController(categoryService);
 
   router.get("/", asyncHandler(controller.findAllCategories));
   router.get("/:id", asyncHandler(controller.findDetailCategory));

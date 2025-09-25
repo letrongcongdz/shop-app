@@ -1,5 +1,3 @@
-import type { Category } from "../entities/Category.ts";
-
 export class CategoryResponse {
     private id: number;
     private name: string;

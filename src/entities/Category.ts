@@ -7,9 +7,9 @@ import {
 @Entity({name: "categories"})
 export class Category {
     @PrimaryGeneratedColumn({name: "id"})
-    private id!: number;
+    id!: number;
     @Column({name: "name", unique: true, nullable: false})
-    private name: string;
+    name: string;
 
     constructor(
         name: string

@@ -1,5 +1,5 @@
 import express from 'express';
-import { appDataSource } from './config/databaseConnect.ts';
+import { AppDataSource } from './config/databaseConnect.ts';
 import { categoryRouter } from './routes/categoryRoute.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
 
@@ -11,7 +11,7 @@ app.use("/categories", categoryRouter);
 
 app.use(errorHandler);
 
-appDataSource.initialize()
+AppDataSource.initialize()
   .then(() => {
     console.log("Database connected successfully");
     app.listen(port, () => {
