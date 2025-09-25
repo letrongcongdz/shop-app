@@ -1,0 +1,27 @@
+{
+  "name": "shop-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/letrongcongdz/shop-app.git",
+  "author": "letrongcongdz <cong.letrong@ncc.asia>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.5.2",
+    "@types/pg": "^8.15.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.27",
+    "zod": "^4.1.11"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts"
+  }
+}
