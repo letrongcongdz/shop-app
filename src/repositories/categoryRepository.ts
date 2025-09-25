@@ -4,7 +4,7 @@ import type { ICategoryRepository } from "./interfaces/categoryRepository.ts";
 import { DataSource, DeleteResult } from "typeorm";
 
 export class CategoryRepository implements ICategoryRepository {
-    private categoryRepository = appDataSource.getRepository(Category)
+    private categoryRepository = AppDataSource.getRepository(Category)
     async findAllCategories(): Promise<Category[]> {
         return await this.categoryRepository.find();
     }
@@ -23,7 +23,7 @@ export class CategoryRepository implements ICategoryRepository {
         return this.findCategoryById(id);
     }
 
-    deleteCategory(id: number): Promise<DeleteResult> {
+    async deleteCategory(id: number): Promise<DeleteResult> {
         return this.categoryRepository.delete(id);
     }
 }

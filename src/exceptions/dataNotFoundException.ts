@@ -1,4 +1,4 @@
-import { appError } from "./AppError.ts";
+import { appError } from "./appError.ts";
 
 export class dataNotFoundException extends appError {
     constructor(message: string) {

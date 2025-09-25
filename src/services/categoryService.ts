@@ -16,7 +16,7 @@ export class CategoryService implements ICategoryService {
   }
   async findAllCategories(options: PaginationOptions): Promise<CategoryResponse[]> {
     const repo: any = (this.categoryRepository as any).categoryRepository;
-    const { items } = await paginateAndSearch<Category>(repo, options, "getName");
+    const { items } = await paginateAndSearch<Category>(repo, options, "name");
     return items.map((cat) => new CategoryResponse(cat.getId(), cat.getName()));
   }
 

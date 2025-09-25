@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express from 'express';
 import { AppDataSource } from './config/databaseConnect.ts';
 import { categoryRouter } from './routes/categoryRoute.ts';
