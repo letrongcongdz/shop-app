@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CategoryController } from "../controllers/categoryController.ts";
+import { CategoryController } from "../controllers/CategoryController.ts";
 import type { ICategoryService } from "../services/interfaces/categoryService.ts";
 import { asyncHandler } from "../middlewares/wrapper.ts";
 //import { validateBody } from "../middlewares/validator.ts";
