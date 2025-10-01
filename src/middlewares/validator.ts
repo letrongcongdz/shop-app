@@ -1,14 +1,13 @@
-import type { Request, Response, NextFunction } from "express";
+// import type { Request, Response, NextFunction } from "express";
+// import type { ZodSchema } from "zod";
 
-export function validateCategory(req: Request, res: Response, next: NextFunction) {
-  const { name } = req.body;
-
-  if (!name || typeof name !== "string" || name.trim().length === 0) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid request: 'name' is required and must be a string",
-    });
-  }
-
-  next();
-}
+// export const validateBody = (schema: ZodSchema) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     const result = schema.safeParse(req.body);
+//     if (!result.success) {
+//       return res.status(400).json({ errors: result.error.format() });
+//     }
+//     req.body = result.data;
+//     next();
+//   };
+// };

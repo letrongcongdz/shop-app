@@ -16,7 +16,7 @@ export class CategoryService implements ICategoryService {
   }
   async findAllCategories(options: PaginationOptions): Promise<CategoryResponse[]> {
     const repo: any = (this.categoryRepository as any).categoryRepository;
-    const { items } = await paginateAndSearch<Category>(repo, options, "getName");
+    const { items } = await paginateAndSearch<Category>(repo, options, "name");
     return items.map((cat) => new CategoryResponse(cat.getId(), cat.getName()));
   }
 
@@ -31,7 +31,7 @@ export class CategoryService implements ICategoryService {
   async createCategory(categoryDTO: CategoryDTO): Promise<Category> {
     try {
       const categoryMapperEntity = mapCategoryDTOToEntity(categoryDTO);
-      const newCategory = this.categoryRepository.createCategory(categoryMapperEntity);
+      const newCategory = await this.categoryRepository.createCategory(categoryMapperEntity);
       return newCategory;
     } catch (error) {
       throw new databaseException("Failed to create category")
