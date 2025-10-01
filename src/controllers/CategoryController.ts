@@ -17,7 +17,7 @@ export class CategoryController {
   findAllCategories = asyncHandler(async (req: Request, res: Response) => {
     const options: PaginationOptions = {
       page: parseInt(req.query.page as string) || 1,
-      limit: parseInt(req.query.limit as string) || 10,
+      limit: parseInt(req.query.limit as string) || 1,
       keyword: req.query.keyword ? String(req.query.keyword) : undefined,
     };
 
