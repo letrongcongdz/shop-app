@@ -4,6 +4,7 @@ import { asyncHandler, sendResponse } from "../middlewares/wrapper.ts";
 import type { PaginationOptions } from "../utils/algorithms.ts";
 import { CategoryRepository } from "../repositories/categoryRepository.ts";
 import { CategoryService } from "../services/categoryService.ts";
+import { badRequestError } from "../exceptions/badRequestException.ts";
 
 export class CategoryController {
   private categoryService: ICategoryService;
@@ -27,7 +28,7 @@ export class CategoryController {
   findDetailCategory = asyncHandler(async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     if (isNaN(id)) {
-      throw new Error("Invalid category id");
+      throw new badRequestError("Invalid category id");
     }
 
     const category = await this.categoryService.findCategoryById(id);
@@ -43,7 +44,7 @@ export class CategoryController {
   updateCategory = asyncHandler(async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     if (isNaN(id)) {
-      throw new Error("Invalid category id");
+      throw new badRequestError("Invalid category id");
     }
 
     const categoryDTO = req.body;
@@ -54,7 +55,7 @@ export class CategoryController {
   deleteCategory = asyncHandler(async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     if (isNaN(id)) {
-      throw new Error("Invalid category id");
+      throw new badRequestError("Invalid category id");
     }
 
     await this.categoryService.deleteCategory(id);
