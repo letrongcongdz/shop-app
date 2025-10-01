@@ -8,7 +8,7 @@ import {
 export class Category {
     @PrimaryGeneratedColumn({name: "id"})
     id!: number;
-    @Column({name: "name", unique: true, nullable: false})
+    @Column({name: "name", type: "varchar", unique: true, nullable: false})
     name: string;
 
     constructor(

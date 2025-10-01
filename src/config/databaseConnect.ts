@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { Category } from "../entities/Category.ts";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,4 +11,5 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || "shopapp",
   synchronize: true,
   logging: true,
+  entities: [Category], 
 });

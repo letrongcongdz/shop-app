@@ -45,6 +45,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": true,
   }
 }

@@ -31,7 +31,7 @@ export class CategoryService implements ICategoryService {
   async createCategory(categoryDTO: CategoryDTO): Promise<Category> {
     try {
       const categoryMapperEntity = mapCategoryDTOToEntity(categoryDTO);
-      const newCategory = this.categoryRepository.createCategory(categoryMapperEntity);
+      const newCategory = await this.categoryRepository.createCategory(categoryMapperEntity);
       return newCategory;
     } catch (error) {
       throw new databaseException("Failed to create category")

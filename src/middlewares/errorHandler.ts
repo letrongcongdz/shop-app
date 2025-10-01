@@ -6,10 +6,11 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.error(err.stack);
+  console.error("Error:", err);
 
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || "Internal Server Error", 
+    message: err.message || "Internal Server Error",
+    errorName: err.name,
   });
 }
