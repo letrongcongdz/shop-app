@@ -1,7 +1,7 @@
 import { AppDataSource } from "../config/databaseConnect.ts";
 import { Category } from "../entities/Category.ts";
 import type { ICategoryRepository } from "./interfaces/categoryRepository.ts";
-import { DataSource, DeleteResult } from "typeorm";
+import { DeleteResult } from "typeorm";
 
 export class CategoryRepository implements ICategoryRepository {
     private categoryRepository = AppDataSource.getRepository(Category)
