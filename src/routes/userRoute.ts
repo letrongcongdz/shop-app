@@ -9,6 +9,7 @@ const controller = new UserController();
 // router.get("/", controller);
 // router.get("/:id", controller);
 router.post("/", validateBody(createUserSchema) ,controller.createUser);
+router.post("/login", controller.login);
 // router.put("/:id", validateBody(updateCategorySchema),controller);
 // router.delete("/:id", controller.);
 
