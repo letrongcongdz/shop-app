@@ -17,4 +17,10 @@ export class UserController {
         const newUser = await this.userService.createUser(userDTO);
         return sendResponse(res, newUser, "Create user success");
     });
+
+    login = asyncHandler(async(req: Request, res: Response) => {
+        const userLoginDTO = req.body;
+        const result = await this.userService.login(userLoginDTO);
+        return sendResponse(res, result, "Login success");
+    })
 }
