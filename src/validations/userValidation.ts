@@ -15,6 +15,9 @@ export const createUserSchema = z.object({
   password: z.string()
     .min(6, "Password must be at least 6 characters"),
 
+  retypePassword: z.string()
+    .min(6, "Password must be at least 6 characters"),
+
   isActive: z.boolean().optional().default(true),
 
   roleId: z.number()

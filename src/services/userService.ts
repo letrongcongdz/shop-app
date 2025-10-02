@@ -21,9 +21,9 @@ export class UserService implements IUserService {
                 throw new dataIntegrityViolationException("Phone number already exists");
             }
 
-            // if (userDTO.password !== userDTO.retypePassword) {
-            //     throw new badRequestException("Passwords do not match");
-            // }
+            if (userDTO.password !== userDTO.retypePassword) {
+                throw new badRequestException("Passwords do not match");
+            }
 
             const hashPassword = await bcrypt.hash(userDTO.password, 10);
 
