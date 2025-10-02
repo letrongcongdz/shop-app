@@ -4,12 +4,12 @@ import { validateBody } from "../middlewares/validator.ts";
 import { createCategorySchema, updateCategorySchema } from "../validations/categoryValidation.ts";
 
 const router = Router();
-const controller = new CategoryController();
+const categoryController = new CategoryController();
 
-router.get("/", controller.findAllCategories);
-router.get("/:id", controller.findDetailCategory);
-router.post("/", validateBody(createCategorySchema) ,controller.createCategory);
-router.put("/:id", validateBody(updateCategorySchema),controller.updateCategory);
-router.delete("/:id", controller.deleteCategory);
+router.get("/", categoryController.findAllCategories);
+router.get("/:id", categoryController.findDetailCategory);
+router.post("/", validateBody(createCategorySchema) ,categoryController.createCategory);
+router.put("/:id", validateBody(updateCategorySchema),categoryController.updateCategory);
+router.delete("/:id", categoryController.deleteCategory);
 
 export default router;

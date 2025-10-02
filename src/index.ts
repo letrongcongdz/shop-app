@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express from 'express';
 import { AppDataSource } from './config/databaseConnect.ts';
 import categoryRouter from './routes/categoryRoute.ts';
+import userRouter from './routes/userRoute.ts'
 import { errorHandler } from './middlewares/errorHandler.ts';
 
 const app = express();
@@ -16,6 +17,7 @@ AppDataSource.initialize()
     console.error("Database connection error:", error);
   });
 
+app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
 
 app.use(errorHandler);
