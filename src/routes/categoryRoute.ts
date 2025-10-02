@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { CategoryController } from "../controllers/CategoryController.ts";
-import { validateBody } from "../middlewares/validator.ts";
+import { validateBody } from "../middlewares/validateBody.ts";
 import { createCategorySchema, updateCategorySchema } from "../validations/categoryValidation.ts";
 
 const router = Router();
