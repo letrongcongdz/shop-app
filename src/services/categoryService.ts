@@ -1,12 +1,10 @@
-import { tr } from "zod/locales";
 import type { CategoryDTO } from "../dtos/CategoryDTO.ts";
-import type { Category } from "../entities/Category.ts";
+import { Category } from "../entities/Category.ts";
 import { dataNotFoundException } from "../exceptions/dataNotFoundException.ts";
 import type { ICategoryRepository } from "../repositories/interfaces/categoryRepository.ts";
 import { CategoryResponse } from "../responses/CategoryResponse.ts";
 import { paginateAndSearch, type PaginationOptions } from "../utils/algorithms.ts";
 import type { ICategoryService } from "./interfaces/categoryService.ts";
-import { mapCategoryDTOToEntity } from "../mapper/categoryMapper.ts";
 import { databaseException } from "../exceptions/databaseException.ts";
 
 export class CategoryService implements ICategoryService {
@@ -30,8 +28,8 @@ export class CategoryService implements ICategoryService {
 
   async createCategory(categoryDTO: CategoryDTO): Promise<Category> {
     try {
-      const categoryMapperEntity = mapCategoryDTOToEntity(categoryDTO);
-      const newCategory = await this.categoryRepository.createCategory(categoryMapperEntity);
+      const category = new Category(categoryDTO.name)
+      const newCategory = await this.categoryRepository.createCategory(category);
       return newCategory;
     } catch (error) {
       throw new databaseException("Failed to create category")
@@ -44,8 +42,8 @@ export class CategoryService implements ICategoryService {
       if (!existingId) {
         throw new dataNotFoundException(`Category with id = ${id} not found`);
       }
-      const categoryMapperEntity = mapCategoryDTOToEntity(categoryDTO);
-      const updateCategory = await this.categoryRepository.updateCategory(id, categoryMapperEntity)
+      const category = new Category(categoryDTO.name);
+      const updateCategory = await this.categoryRepository.updateCategory(id, category);
       return updateCategory;
     } catch (error) {
       throw new databaseException("Failed to update category");

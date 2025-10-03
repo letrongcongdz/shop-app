@@ -1,22 +1,26 @@
 import bcrypt from "bcryptjs";
 import jwt, { type SignOptions } from "jsonwebtoken";
 import type { UserDTO } from "../dtos/UserDTO.ts";
-import type { User } from "../entities/User.ts";
+import { User } from "../entities/User.ts";
 import { badRequestException } from "../exceptions/badRequestException.ts";
 import { dataIntegrityViolationException } from "../exceptions/dataIntegrityViolationException.ts";
-import { dataNotFoundException } from "../exceptions/dataNotFoundException.ts";
-import { mapUserDTOToUser } from "../mapper/userMapper.ts";
 import type { IUserRepository } from "../repositories/interfaces/userRepository.ts";
 import type { IUserService } from "./interfaces/userService.ts";
 import { databaseException } from "../exceptions/databaseException.ts";
 import type { UserLoginDTO } from "../dtos/UserLoginDTO.ts";
 import { invalidParamException } from "../exceptions/invalidParamException.ts";
 import { LoginResponse } from "../responses/LoginResponse.ts";
+import type { IRoleRepository } from "../repositories/interfaces/roleRepository.ts";
 
 export class UserService implements IUserService {
     private userRepository: IUserRepository;
-    constructor(userRepository: IUserRepository) {
-        this.userRepository = userRepository
+    private roleRepository: IRoleRepository;
+    constructor(
+        userRepository: IUserRepository,
+        roleRepository: IRoleRepository
+    ) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
     async createUser(userDTO: UserDTO): Promise<User> {
         try {
@@ -31,10 +35,23 @@ export class UserService implements IUserService {
 
             const hashPassword = await bcrypt.hash(userDTO.password, 10);
 
-            const userMapperEntity = mapUserDTOToUser(userDTO);
-            userMapperEntity.setPassword(hashPassword);
+            const existingRole = await this.roleRepository.findRoleById(userDTO.roleId);
+            if (!existingRole) {
+                throw new badRequestException("Invalid roleId");
+            }
 
-            return await this.userRepository.createUser(userMapperEntity);
+            const now = new Date();
+            const user = new User(
+                userDTO.fullName,
+                userDTO.phoneNumber,
+                userDTO.address,
+                hashPassword,
+                now,
+                now,
+                existingRole
+            )
+
+            return await this.userRepository.createUser(user);
 
         } catch (error) {
             throw new databaseException("Failed to create user")

@@ -5,20 +5,19 @@ import { Category } from "./Category.ts";
 @Entity({name: "products"})
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn({name: "id"})
-    private id: number;
-    @Column({name: "name", nullable: false})
-    private name: string;
+    public id!: number;
+    @Column({name: "name", type: "varchar", nullable: false})
+    public name: string;
     @Column({ name: "price", type: "decimal", precision: 10, scale: 2 })
-    private price: number;
-    @Column({name: "thumbnail", nullable: false})
-    private thumbnail: string;
-    @Column({name: "description"})
-    private description: string;
+    public price: number;
+    @Column({name: "thumbnail", type: "varchar", nullable: false})
+    public thumbnail: string;
+    @Column({name: "description", type: "varchar"})
+    public description: string;
     @OneToMany(() => Category, category => category.getId(), {onDelete: "CASCADE", onUpdate: "CASCADE"})
     @JoinColumn({name: "category_id"})
-    private categoryId: number;
+    public categoryId: number;
     constructor(
-        id: number,
         name: string,
         price: number,
         thumbnail: string,
@@ -28,7 +27,6 @@ export class Product extends BaseEntity {
         categoryId: number
     ) {
         super(createAt, updateAt);
-        this.id = id;
         this.name = name;
         this.price = price;
         this.thumbnail = thumbnail;
