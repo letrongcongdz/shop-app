@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { OrderStatus } from "./OrderStatus.ts";
+import { OrderStatus } from "../enums/OrderStatus.ts";
 import { User } from "./User.ts";
 
 @Entity({name: "orders"})

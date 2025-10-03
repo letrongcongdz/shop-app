@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Category } from "../entities/Category.ts";
 import { User } from "../entities/User.ts";
+import { Role } from "../entities/Role.ts";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -12,5 +13,5 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || "shop-app",
   synchronize: true,
   logging: true,
-  entities: [Category, User], 
+  entities: [Category, User, Role], 
 });
