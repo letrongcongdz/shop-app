@@ -57,7 +57,7 @@ export class UserService implements IUserService {
                 id: existingPhoneNumber.id,
                 phoneNumber: existingPhoneNumber.phoneNumber,
                 fullName: existingPhoneNumber.fullName,
-                role: existingPhoneNumber.roleId,
+                role: existingPhoneNumber.role,
                 address: existingPhoneNumber.address
             },
             process.env.JWT_SECRET || "fallbackSecret" as string,
@@ -69,7 +69,7 @@ export class UserService implements IUserService {
             existingPhoneNumber.id,
             existingPhoneNumber.fullName,
             existingPhoneNumber.phoneNumber,
-            existingPhoneNumber.roleId,
+            existingPhoneNumber.role.name,
             existingPhoneNumber.address
         );
     }

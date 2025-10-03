@@ -8,10 +8,10 @@ export class LoginResponse extends UserResponse {
         id: number,
         fullName: string,
         phoneNumber: string,
-        roleId: number,
+        roleName: string,
         address: string
     ){
-        super(id, fullName, phoneNumber, roleId, address);
+        super(id, fullName, phoneNumber, roleName, address);
         this.token = token;
     }
 }

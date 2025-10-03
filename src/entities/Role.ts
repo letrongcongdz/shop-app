@@ -1,17 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User.ts";
 
 @Entity({name: "roles"})
 export class Role {
     @PrimaryGeneratedColumn({name: "id"})
-    private id: number;
-    @Column({name: "name", unique: true, nullable: false})
-    private name: string;
+    public id!: number;
+    @Column({name: "name", type: "varchar", nullable: true})
+    public name: string;
+    @OneToMany(() => User, (user) => user.role)
+    users!: User[];
 
     constructor(
-        id: number,
         name: string
     ) {
-        this.id = id;
         this.name = name;
     }
 

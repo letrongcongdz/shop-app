@@ -1,7 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "./BaseEntity.ts";
+import { Role } from "./Role.ts";
 
-@Entity({name: "users"})
+@Entity({ name: "users" })
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn({ name: "id" })
     public id!: number;
@@ -21,9 +22,9 @@ export class User extends BaseEntity {
     public facebookAccountId!: number;
     @Column({ name: "google_account_id", type: "int", default: 0 })
     public googleAccountId!: number;
-    @ManyToOne(() => User, user => user.roleId, {onDelete: "CASCADE", onUpdate: "CASCADE"})
-    @JoinColumn({name: "role_id"})
-    public roleId: number;
+    @ManyToOne(() => Role, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @JoinColumn({ name: "role_id" })
+    public role: Role;
 
     constructor(
         fullName: string,
@@ -32,14 +33,14 @@ export class User extends BaseEntity {
         password: string,
         createAt: Date,
         updateAt: Date,
-        roleId: number
+        role: Role
     ) {
         super(createAt, updateAt);
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.password = password;
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public getId(): number {
@@ -83,11 +84,11 @@ export class User extends BaseEntity {
     public setIsActive(isAcctive: boolean) {
         this.isActive = isAcctive;
     }
-    
-    public getRoleId(): number {
-        return this.roleId;
+
+    public getRole(): Role {
+        return this.role;
     }
-    public setRoleId(roleId: number) {
-        this.roleId = roleId;
+    public setRoleId(role: Role) {
+        this.role = role;
     }
 }
