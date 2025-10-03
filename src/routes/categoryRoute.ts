@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { CategoryController } from "../controllers/CategoryController.ts";
-import { validateBody } from "../middlewares/validator.ts";
+import { validateBody } from "../middlewares/validateBody.ts";
 import { createCategorySchema, updateCategorySchema } from "../validations/categoryValidation.ts";
 import { authMiddleware, authorizeRoles } from "../middlewares/authMiddleware.ts";
 import { Role } from "../enums/role.ts";

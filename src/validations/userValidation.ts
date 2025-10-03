@@ -18,7 +18,14 @@ export const createUserSchema = z.object({
   retypePassword: z.string()
     .min(6, "Password must be at least 6 characters"),
 
-  isActive: z.boolean().optional().default(true),
-
   roleId: z.number()
+});
+
+
+export const loginSchema = z.object({
+  phoneNumber: z.string()
+    .regex(/^[0-9]{10,15}$/, "Phone number must be 10-15 digits"),
+
+  password: z.string()
+    .min(6, "Password must be at least 6 characters"),
 });
