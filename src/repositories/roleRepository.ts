@@ -4,7 +4,7 @@ import type { IRoleRepository } from "./interfaces/roleRepository.ts";
 
 export class RoleRepository implements IRoleRepository {
     private roleReopsitory = AppDataSource.getRepository(Role)
-    findRoleById(id: number): Promise<Role | null> {
+    async findRoleById(id: number): Promise<Role | null> {
         return this.roleReopsitory.findOneBy({ id });
     }
 }

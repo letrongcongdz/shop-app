@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "./BaseEntity.ts";
 import { Category } from "./Category.ts";
 
@@ -14,9 +14,10 @@ export class Product extends BaseEntity {
     public thumbnail: string;
     @Column({name: "description", type: "varchar"})
     public description: string;
-    @OneToMany(() => Category, category => category.getId(), {onDelete: "CASCADE", onUpdate: "CASCADE"})
-    @JoinColumn({name: "category_id"})
-    public categoryId: number;
+    @ManyToOne(() => Category, (category) => category.products)
+    @JoinColumn({ name: "category_id" })
+    public category: Category;
+
     constructor(
         name: string,
         price: number,
@@ -24,14 +25,14 @@ export class Product extends BaseEntity {
         description: string,
         createAt: Date,
         updateAt: Date,
-        categoryId: number
+        category: Category
     ) {
         super(createAt, updateAt);
         this.name = name;
         this.price = price;
         this.thumbnail = thumbnail;
         this.description = description;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
     public getId(): number {
@@ -70,11 +71,11 @@ export class Product extends BaseEntity {
         this.description = description;
     }
 
-    public getCategoryId(): number {
-        return this.categoryId;
+    public getCategoryId(): Category {
+        return this.category;
     }
 
-    public setCategoryId(categoryId: number) {
-        this.categoryId = categoryId;
+    public setCategoryId(category: Category) {
+        this.category = category;
     }
 }

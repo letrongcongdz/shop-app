@@ -1,8 +1,10 @@
 import {
     Entity,
     PrimaryGeneratedColumn,
-    Column
+    Column,
+    OneToMany
 } from "typeorm";
+import { Product } from "./Product.ts";
 
 @Entity({name: "categories"})
 export class Category {
@@ -10,6 +12,8 @@ export class Category {
     id!: number;
     @Column({name: "name", type: "varchar", unique: true, nullable: false})
     name: string;
+    @OneToMany(() => Product, (product) => product.category)
+    public products!: Product[];
 
     constructor(
         name: string
