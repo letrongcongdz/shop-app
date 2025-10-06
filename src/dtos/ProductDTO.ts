@@ -1,6 +1,4 @@
-import { BaseDTO } from "./BaseDTO.ts";
-
-export class ProductDTO extends BaseDTO{
+export class ProductDTO{
     public name: string;
     public price: number;
     public thumbnail: string;
@@ -11,11 +9,8 @@ export class ProductDTO extends BaseDTO{
         price: number,
         thumbnail: string,
         description: string,
-        createAt: Date,
-        updateAt: Date,
         categoryId: number
     ) {
-        super(createAt, updateAt);
         this.name = name;
         this.price = price;
         this.thumbnail = thumbnail;

@@ -3,6 +3,7 @@ import express from 'express';
 import { AppDataSource } from './config/databaseConnect.ts';
 import categoryRouter from './routes/categoryRoute.ts';
 import userRouter from './routes/userRoute.ts'
+import productRouter from './routes/productRoute.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
 
 const app = express();
@@ -19,6 +20,7 @@ AppDataSource.initialize()
 
 app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
+app.use("/products", productRouter);
 
 app.use(errorHandler);
 
