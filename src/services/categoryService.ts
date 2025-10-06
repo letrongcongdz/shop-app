@@ -5,7 +5,6 @@ import type { ICategoryRepository } from "../repositories/interfaces/categoryRep
 import { CategoryResponse } from "../responses/CategoryResponse.ts";
 import { paginateAndSearch, type PaginationOptions } from "../utils/algorithms.ts";
 import type { ICategoryService } from "./interfaces/categoryService.ts";
-import { databaseException } from "../exceptions/databaseException.ts";
 
 export class CategoryService implements ICategoryService {
   private categoryRepository: ICategoryRepository;
@@ -27,39 +26,26 @@ export class CategoryService implements ICategoryService {
   }
 
   async createCategory(categoryDTO: CategoryDTO): Promise<Category> {
-    try {
-      const category = new Category(categoryDTO.name)
-      const newCategory = await this.categoryRepository.createCategory(category);
-      return newCategory;
-    } catch (error) {
-      throw new databaseException("Failed to create category")
-    }
+    const category = new Category(categoryDTO.name)
+    const newCategory = await this.categoryRepository.createCategory(category);
+    return newCategory;
   }
 
   async updateCategory(id: number, categoryDTO: CategoryDTO): Promise<Category | null> {
-    try {
-      const existingId = await this.categoryRepository.findCategoryById(id);
-      if (!existingId) {
-        throw new dataNotFoundException(`Category with id = ${id} not found`);
-      }
-      const category = new Category(categoryDTO.name);
-      const updateCategory = await this.categoryRepository.updateCategory(id, category);
-      return updateCategory;
-    } catch (error) {
-      throw new databaseException("Failed to update category");
+    const existingId = await this.categoryRepository.findCategoryById(id);
+    if (!existingId) {
+      throw new dataNotFoundException(`Category with id = ${id} not found`);
     }
+    const category = new Category(categoryDTO.name);
+    const updateCategory = await this.categoryRepository.updateCategory(id, category);
+    return updateCategory;
   }
 
   async deleteCategory(id: number): Promise<void> {
-    try {
-      const existingCategory = await this.categoryRepository.findCategoryById(id);
-      if (!existingCategory) {
-        throw new dataNotFoundException(`Category with id = ${id} not found`);
-      }
-
-      await this.categoryRepository.deleteCategory(id);
-    } catch (error) {
-      throw new databaseException("Failed to delete category");
+    const existingCategory = await this.categoryRepository.findCategoryById(id);
+    if (!existingCategory) {
+      throw new dataNotFoundException(`Category with id = ${id} not found`);
     }
+    await this.categoryRepository.deleteCategory(id);
   }
 }
