@@ -6,7 +6,6 @@ import { badRequestException } from "../exceptions/badRequestException.ts";
 import { dataIntegrityViolationException } from "../exceptions/dataIntegrityViolationException.ts";
 import type { IUserRepository } from "../repositories/interfaces/userRepository.ts";
 import type { IUserService } from "./interfaces/userService.ts";
-import { databaseException } from "../exceptions/databaseException.ts";
 import type { UserLoginDTO } from "../dtos/UserLoginDTO.ts";
 import { invalidParamException } from "../exceptions/invalidParamException.ts";
 import { LoginResponse } from "../responses/LoginResponse.ts";
@@ -23,39 +22,34 @@ export class UserService implements IUserService {
         this.roleRepository = roleRepository;
     }
     async createUser(userDTO: UserDTO): Promise<User> {
-        try {
-            const existingPhoneNumber = await this.userRepository.findByPhoneNumber(userDTO.phoneNumber);
-            if (existingPhoneNumber) {
-                throw new dataIntegrityViolationException("Phone number already exists");
-            }
-
-            if (userDTO.password !== userDTO.retypePassword) {
-                throw new badRequestException("Passwords do not match");
-            }
-
-            const hashPassword = await bcrypt.hash(userDTO.password, 10);
-
-            const existingRole = await this.roleRepository.findRoleById(userDTO.roleId);
-            if (!existingRole) {
-                throw new badRequestException("Invalid roleId");
-            }
-
-            const now = new Date();
-            const user = new User(
-                userDTO.fullName,
-                userDTO.phoneNumber,
-                userDTO.address,
-                hashPassword,
-                now,
-                now,
-                existingRole
-            )
-
-            return await this.userRepository.createUser(user);
-
-        } catch (error) {
-            throw new databaseException("Failed to create user")
+        const existingPhoneNumber = await this.userRepository.findByPhoneNumber(userDTO.phoneNumber);
+        if (existingPhoneNumber) {
+            throw new dataIntegrityViolationException("Phone number already exists");
         }
+
+        if (userDTO.password !== userDTO.retypePassword) {
+            throw new badRequestException("Passwords do not match");
+        }
+
+        const hashPassword = await bcrypt.hash(userDTO.password, 10);
+
+        const existingRole = await this.roleRepository.findRoleById(userDTO.roleId);
+        if (!existingRole) {
+            throw new badRequestException("Invalid roleId");
+        }
+
+        const now = new Date();
+        const user = new User(
+            userDTO.fullName,
+            userDTO.phoneNumber,
+            userDTO.address,
+            hashPassword,
+            now,
+            now,
+            existingRole
+        )
+
+        return await this.userRepository.createUser(user);
     }
 
     async login(userLoginDTO: UserLoginDTO): Promise<LoginResponse> {
@@ -90,6 +84,4 @@ export class UserService implements IUserService {
             existingPhoneNumber.address
         );
     }
-
-
 }
